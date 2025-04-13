@@ -152,7 +152,7 @@ const ProductPage = () => {
               <h1 className="text-3xl font-bold">{product.name}</h1>
               
               <div className="flex items-center">
-                <span className="text-2xl font-bold">${product.price.toFixed(2)}</span>
+                <span className="text-2xl font-bold">₹{product.price.toLocaleString()}</span>
                 {product.inStock ? (
                   <span className="ml-4 px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">
                     In Stock

@@ -41,7 +41,7 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
               <div className="text-sm text-gray-500">
                 {product.category} | {product.subcategory}
               </div>
-              <div className="font-bold">${product.price}</div>
+              <div className="font-bold">₹{product.price.toLocaleString()}</div>
             </div>
           </CardContent>
           <CardFooter className="p-4 pt-0 text-sm text-gray-500">
