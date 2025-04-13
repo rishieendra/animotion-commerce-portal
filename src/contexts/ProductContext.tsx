@@ -44,14 +44,14 @@ type ProductContextType = {
   getFeaturedProducts: () => Product[];
 };
 
-// Sample product data
+// Sample product data with updated relevant images
 const initialProducts: Product[] = [
   {
     id: '1',
     name: 'Sliding UPVC Window',
     description: 'Energy-efficient sliding window with double glazing',
     price: 29000,
-    image: 'https://images.unsplash.com/photo-1503377984674-b8b25b059080?auto=format&fit=crop&w=1200&h=800',
+    image: '/lovable-uploads/2c22f2fa-2857-4eab-8df1-d01b045416ed.png',
     category: 'UPVC',
     subcategory: 'Windows',
     material: 'UPVC',
@@ -64,7 +64,7 @@ const initialProducts: Product[] = [
     name: 'UPVC French Door',
     description: 'Classic French door design with modern UPVC material',
     price: 53500,
-    image: 'https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&h=800',
     category: 'UPVC',
     subcategory: 'Doors',
     material: 'UPVC',
@@ -77,7 +77,7 @@ const initialProducts: Product[] = [
     name: 'Aluminium Casement Window',
     description: 'Durable aluminium frame with smooth operation',
     price: 34500,
-    image: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1495841674384-a283dc3dfabb?auto=format&fit=crop&w=1200&h=800',
     category: 'Aluminium',
     subcategory: 'Windows',
     material: 'Aluminium',
@@ -90,7 +90,7 @@ const initialProducts: Product[] = [
     name: 'Steel Security Door',
     description: 'Heavy-duty steel door for maximum security',
     price: 70000,
-    image: 'https://images.unsplash.com/photo-1543420629-5350879dd4cd?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1614735241165-6756e1df61ab?auto=format&fit=crop&w=1200&h=800',
     category: 'Steel',
     subcategory: 'Doors',
     material: 'Steel',
@@ -103,7 +103,7 @@ const initialProducts: Product[] = [
     name: 'Glass Partition',
     description: 'Modern glass partition for office spaces',
     price: 98500,
-    image: 'https://images.unsplash.com/photo-1620332372374-f108c53f2c06?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1597142078583-99a667029450?auto=format&fit=crop&w=1200&h=800',
     category: 'Glass',
     subcategory: 'Partitions',
     material: 'Tempered Glass',
@@ -116,7 +116,7 @@ const initialProducts: Product[] = [
     name: 'Iron Main Gate',
     description: 'Ornate iron main gate with durable powder coating',
     price: 148000,
-    image: 'https://images.unsplash.com/photo-1507637246190-63d5daf6d9e1?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1473815579684-96f56188687c?auto=format&fit=crop&w=1200&h=800',
     category: 'Iron',
     subcategory: 'Main gate',
     material: 'Iron',
@@ -129,7 +129,7 @@ const initialProducts: Product[] = [
     name: 'WPVC Interior Door',
     description: 'Stylish and durable interior door',
     price: 26000,
-    image: 'https://images.unsplash.com/photo-1550705591-932d2878b6ee?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1581000360862-acdc8735c242?auto=format&fit=crop&w=1200&h=800',
     category: 'WPVC',
     subcategory: 'Doors',
     material: 'WPVC',
@@ -142,13 +142,13 @@ const initialProducts: Product[] = [
     name: 'ABS Bathroom Door',
     description: 'Water-resistant ABS door perfect for bathrooms',
     price: 23000,
-    image: 'https://images.unsplash.com/photo-1596416827954-fe736e2a271e?auto=format&fit=crop&w=1200&h=800',
+    image: 'https://images.unsplash.com/photo-1558612123-f8eea59d6ff2?auto=format&fit=crop&w=1200&h=800',
     category: 'ABS',
     subcategory: 'Doors',
     material: 'ABS Plastic',
     size: '30" x 78"',
     inStock: true,
-    featured: false
+    featured: true
   }
 ];
 

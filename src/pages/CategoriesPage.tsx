@@ -6,13 +6,13 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 const categoryImages: Record<ProductCategory, string> = {
-  'UPVC': 'https://images.unsplash.com/photo-1503377984674-b8b25b059080?auto=format&fit=crop&w=800&h=450',
-  'Aluminium': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=800&h=450',
-  'Steel': 'https://images.unsplash.com/photo-1543420629-5350879dd4cd?auto=format&fit=crop&w=800&h=450',
-  'Glass': 'https://images.unsplash.com/photo-1620332372374-f108c53f2c06?auto=format&fit=crop&w=800&h=450',
-  'Iron': 'https://images.unsplash.com/photo-1507637246190-63d5daf6d9e1?auto=format&fit=crop&w=800&h=450',
-  'WPVC': 'https://images.unsplash.com/photo-1550705591-932d2878b6ee?auto=format&fit=crop&w=800&h=450',
-  'ABS': 'https://images.unsplash.com/photo-1596416827954-fe736e2a271e?auto=format&fit=crop&w=800&h=450'
+  'UPVC': 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&h=450',
+  'Aluminium': 'https://images.unsplash.com/photo-1495841674384-a283dc3dfabb?auto=format&fit=crop&w=800&h=450',
+  'Steel': 'https://images.unsplash.com/photo-1614735241165-6756e1df61ab?auto=format&fit=crop&w=800&h=450',
+  'Glass': 'https://images.unsplash.com/photo-1597142078583-99a667029450?auto=format&fit=crop&w=800&h=450',
+  'Iron': 'https://images.unsplash.com/photo-1473815579684-96f56188687c?auto=format&fit=crop&w=800&h=450',
+  'WPVC': 'https://images.unsplash.com/photo-1581000360862-acdc8735c242?auto=format&fit=crop&w=800&h=450',
+  'ABS': 'https://images.unsplash.com/photo-1558612123-f8eea59d6ff2?auto=format&fit=crop&w=800&h=450'
 };
 
 const CategoriesPage = () => {
