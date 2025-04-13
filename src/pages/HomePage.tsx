@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useProducts, ProductCategory } from "@/contexts/ProductContext";
@@ -9,13 +8,22 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
 
+const categoryImages: Record<ProductCategory, string> = {
+  'UPVC': 'https://images.unsplash.com/photo-1503377984674-b8b25b059080?auto=format&fit=crop&w=800&h=450',
+  'Aluminium': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=800&h=450',
+  'Steel': 'https://images.unsplash.com/photo-1543420629-5350879dd4cd?auto=format&fit=crop&w=800&h=450',
+  'Glass': 'https://images.unsplash.com/photo-1620332372374-f108c53f2c06?auto=format&fit=crop&w=800&h=450',
+  'Iron': 'https://images.unsplash.com/photo-1507637246190-63d5daf6d9e1?auto=format&fit=crop&w=800&h=450',
+  'WPVC': 'https://images.unsplash.com/photo-1550705591-932d2878b6ee?auto=format&fit=crop&w=800&h=450',
+  'ABS': 'https://images.unsplash.com/photo-1596416827954-fe736e2a271e?auto=format&fit=crop&w=800&h=450'
+};
+
 const HomePage = () => {
   const { products, getFeaturedProducts } = useProducts();
   const scrollRef = useRef<HTMLDivElement>(null);
   
   const featuredProducts = getFeaturedProducts();
   
-  // Group products by category
   const productsByCategory = products.reduce((acc, product) => {
     if (!acc[product.category]) {
       acc[product.category] = [];
@@ -24,13 +32,11 @@ const HomePage = () => {
     return acc;
   }, {} as Record<ProductCategory, typeof products>);
   
-  // Get categories with at least one product
   const categories = Object.keys(productsByCategory).filter(
     category => productsByCategory[category as ProductCategory]?.length > 0
   ) as ProductCategory[];
   
   useEffect(() => {
-    // Add scroll animation observer for product cards
     const scrollElements = document.querySelectorAll('.scroll-reveal');
     
     const observer = new IntersectionObserver(
@@ -55,9 +61,14 @@ const HomePage = () => {
     <div>
       <NavBar />
       
-      {/* Hero Section */}
       <section className="relative bg-gray-900 text-white">
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/50 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=1920&h=1080" 
+            alt="Hero background" 
+            className="w-full h-full object-cover opacity-50 mix-blend-overlay"
+          />
+        </div>
         <div className="container mx-auto px-4 py-24 sm:py-32 relative z-10">
           <AnimatedSection className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
@@ -82,7 +93,6 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Featured Products */}
       <section ref={scrollRef} className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="flex justify-between items-center mb-10">
@@ -104,7 +114,6 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Categories */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center mb-12">
@@ -121,7 +130,7 @@ const HomePage = () => {
                   <div className="relative overflow-hidden rounded-lg shadow-md">
                     <div className="aspect-w-16 aspect-h-9">
                       <img 
-                        src="/placeholder.svg" 
+                        src={categoryImages[category]} 
                         alt={category} 
                         className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                       />
@@ -140,7 +149,6 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Why Choose Us */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center mb-12">
@@ -196,7 +204,6 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Call to Action */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center max-w-3xl mx-auto">

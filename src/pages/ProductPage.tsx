@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProducts } from "@/contexts/ProductContext";
@@ -28,17 +27,24 @@ const ProductPage = () => {
   
   const [mainImage, setMainImage] = useState(product?.image || "/placeholder.svg");
   
-  // Mock images for gallery
-  const galleryImages = [
-    product?.image || "/placeholder.svg", 
-    "/placeholder.svg",
-    "/placeholder.svg", 
-    "/placeholder.svg"
-  ];
+  const generateGalleryImages = (mainImg: string) => {
+    return [
+      mainImg,
+      mainImg + "?v=1",
+      mainImg + "?v=2",
+      mainImg + "?v=3"
+    ];
+  };
+  
+  const galleryImages = product ? generateGalleryImages(product.image) : ["/placeholder.svg"];
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [productId]);
+    
+    if (product) {
+      setMainImage(product.image);
+    }
+  }, [productId, product]);
   
   const handleDeleteProduct = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -69,7 +75,6 @@ const ProductPage = () => {
       <NavBar />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumbs */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -96,7 +101,6 @@ const ProductPage = () => {
         </Breadcrumb>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Product Images */}
           <AnimatedSection animation="fade-in-left">
             <div className="space-y-4">
               <div className="aspect-w-4 aspect-h-3 overflow-hidden rounded-lg bg-gray-100">
@@ -111,12 +115,12 @@ const ProductPage = () => {
                 {galleryImages.map((image, index) => (
                   <div 
                     key={index}
-                    className="aspect-w-1 aspect-h-1 rounded-md overflow-hidden cursor-pointer border-2 hover:border-primary transition-colors"
+                    className={`aspect-w-1 aspect-h-1 rounded-md overflow-hidden cursor-pointer border-2 ${mainImage === image ? 'border-primary' : 'border-transparent hover:border-primary'} transition-colors`}
                     onClick={() => setMainImage(image)}
                   >
                     <img 
                       src={image} 
-                      alt={`${product.name} ${index}`} 
+                      alt={`${product.name} ${index + 1}`} 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -125,7 +129,6 @@ const ProductPage = () => {
             </div>
           </AnimatedSection>
           
-          {/* Product Details */}
           <AnimatedSection animation="fade-in-right">
             <div className="space-y-6">
               {user?.isAdmin && (

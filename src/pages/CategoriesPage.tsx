@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { useProducts, ProductCategory } from "@/contexts/ProductContext";
 import CategoryCard from "@/components/CategoryCard";
@@ -6,10 +5,19 @@ import AnimatedSection from "@/components/AnimatedSection";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
+const categoryImages: Record<ProductCategory, string> = {
+  'UPVC': 'https://images.unsplash.com/photo-1503377984674-b8b25b059080?auto=format&fit=crop&w=800&h=450',
+  'Aluminium': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=800&h=450',
+  'Steel': 'https://images.unsplash.com/photo-1543420629-5350879dd4cd?auto=format&fit=crop&w=800&h=450',
+  'Glass': 'https://images.unsplash.com/photo-1620332372374-f108c53f2c06?auto=format&fit=crop&w=800&h=450',
+  'Iron': 'https://images.unsplash.com/photo-1507637246190-63d5daf6d9e1?auto=format&fit=crop&w=800&h=450',
+  'WPVC': 'https://images.unsplash.com/photo-1550705591-932d2878b6ee?auto=format&fit=crop&w=800&h=450',
+  'ABS': 'https://images.unsplash.com/photo-1596416827954-fe736e2a271e?auto=format&fit=crop&w=800&h=450'
+};
+
 const CategoriesPage = () => {
   const { products } = useProducts();
   
-  // Group products by category
   const productsByCategory = products.reduce((acc, product) => {
     if (!acc[product.category]) {
       acc[product.category] = [];
@@ -18,7 +26,6 @@ const CategoriesPage = () => {
     return acc;
   }, {} as Record<ProductCategory, typeof products>);
   
-  // Get categories with at least one product
   const categories = Object.keys(productsByCategory).filter(
     category => productsByCategory[category as ProductCategory]?.length > 0
   ) as ProductCategory[];
@@ -26,7 +33,6 @@ const CategoriesPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    // Add scroll animation observer for category cards
     const scrollElements = document.querySelectorAll('.scroll-reveal');
     
     const observer = new IntersectionObserver(
@@ -51,7 +57,6 @@ const CategoriesPage = () => {
     <div>
       <NavBar />
       
-      {/* Header */}
       <section className="bg-gray-100 py-12">
         <div className="container mx-auto px-4">
           <AnimatedSection>
@@ -63,7 +68,6 @@ const CategoriesPage = () => {
         </div>
       </section>
       
-      {/* Categories Grid */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -71,7 +75,7 @@ const CategoriesPage = () => {
               <CategoryCard 
                 key={category} 
                 category={category} 
-                image="/placeholder.svg"
+                image={categoryImages[category]}
                 count={productsByCategory[category].length} 
                 index={index}
               />
@@ -80,7 +84,6 @@ const CategoriesPage = () => {
         </div>
       </section>
       
-      {/* Category Descriptions */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <AnimatedSection className="mb-10">
@@ -95,7 +98,7 @@ const CategoriesPage = () => {
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-1/3">
                   <div className="rounded-lg overflow-hidden">
-                    <img src="/placeholder.svg" alt="UPVC" className="w-full h-auto" />
+                    <img src={categoryImages['UPVC']} alt="UPVC" className="w-full h-auto" />
                   </div>
                 </div>
                 <div className="w-full md:w-2/3">
@@ -114,7 +117,7 @@ const CategoriesPage = () => {
               <div className="flex flex-col md:flex-row-reverse gap-8">
                 <div className="w-full md:w-1/3">
                   <div className="rounded-lg overflow-hidden">
-                    <img src="/placeholder.svg" alt="Aluminium" className="w-full h-auto" />
+                    <img src={categoryImages['Aluminium']} alt="Aluminium" className="w-full h-auto" />
                   </div>
                 </div>
                 <div className="w-full md:w-2/3">
@@ -133,7 +136,7 @@ const CategoriesPage = () => {
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-1/3">
                   <div className="rounded-lg overflow-hidden">
-                    <img src="/placeholder.svg" alt="Steel" className="w-full h-auto" />
+                    <img src={categoryImages['Steel']} alt="Steel" className="w-full h-auto" />
                   </div>
                 </div>
                 <div className="w-full md:w-2/3">
