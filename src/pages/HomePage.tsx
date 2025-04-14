@@ -1,14 +1,13 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useProducts, ProductCategory } from "@/contexts/ProductContext";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import ProductCard from "@/components/ProductCard";
 import AnimatedSection from "@/components/AnimatedSection";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { ChevronRight, Search, Mail, MapPin, Phone } from "lucide-react";
+import { ChevronRight, MapPin, Phone, Mail } from "lucide-react";
+import SearchBar from "@/components/SearchBar";
 
 const categoryImages: Record<ProductCategory, string> = {
   'UPVC': 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&h=450',
@@ -23,7 +22,6 @@ const categoryImages: Record<ProductCategory, string> = {
 const HomePage = () => {
   const { products, getFeaturedProducts } = useProducts();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [searchQuery, setSearchQuery] = useState("");
   
   const featuredProducts = getFeaturedProducts();
   
@@ -60,10 +58,6 @@ const HomePage = () => {
     };
   }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
     <div>
       <NavBar />
@@ -85,16 +79,7 @@ const HomePage = () => {
               Transform your space with our high-quality windows, doors, and partitions
             </p>
             <div className="max-w-md mx-auto">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search products..."
-                  className="pr-10 bg-white/90 text-gray-900"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
-              </div>
+              <SearchBar />
             </div>
           </AnimatedSection>
         </div>

@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProductForm from "./pages/ProductForm";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/category/:categoryId" element={<CategoryPage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path="/search" element={<SearchResultsPage />} />
       
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminDashboard />} />
