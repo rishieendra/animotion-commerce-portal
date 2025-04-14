@@ -2,7 +2,21 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, User, LogOut, Package } from "lucide-react";
+import { 
+  ShoppingCart, 
+  User, 
+  LogOut, 
+  Package, 
+  Info, 
+  Phone,
+  ChevronDown
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const NavBar = () => {
   const { user, logout } = useAuth();
@@ -22,12 +36,58 @@ const NavBar = () => {
             <Link to="/categories" className="hover:text-primary transition-colors">
               Categories
             </Link>
-            <Link to="/about" className="hover:text-primary transition-colors">
-              About
-            </Link>
-            <Link to="/contact" className="hover:text-primary transition-colors">
-              Contact
-            </Link>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger className="hover:text-primary transition-colors flex items-center">
+                About <ChevronDown className="h-4 w-4 ml-1" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link to="/about" className="flex items-center">
+                    <Info className="h-4 w-4 mr-2" />
+                    <div>
+                      <div className="font-medium">Our Story</div>
+                      <div className="text-xs text-muted-foreground">Learn about our history and values</div>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/showroom" className="flex items-center">
+                    <Package className="h-4 w-4 mr-2" />
+                    <div>
+                      <div className="font-medium">Showroom</div>
+                      <div className="text-xs text-muted-foreground">Visit our product displays</div>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger className="hover:text-primary transition-colors flex items-center">
+                Contact <ChevronDown className="h-4 w-4 ml-1" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link to="/contact" className="flex items-center">
+                    <Phone className="h-4 w-4 mr-2" />
+                    <div>
+                      <div className="font-medium">Get in Touch</div>
+                      <div className="text-xs text-muted-foreground">Contact our sales team</div>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/support" className="flex items-center">
+                    <Info className="h-4 w-4 mr-2" />
+                    <div>
+                      <div className="font-medium">Support</div>
+                      <div className="text-xs text-muted-foreground">Get help with your products</div>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div className="flex items-center space-x-4">
