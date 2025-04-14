@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProducts, Product } from "@/contexts/ProductContext";
@@ -36,6 +37,8 @@ const SearchResultsPage = () => {
       return;
     }
 
+    console.log(`Search results page query: "${searchQuery}"`);
+    
     const query = searchQuery.toLowerCase();
     const results = products.filter(product => {
       return (
@@ -43,13 +46,25 @@ const SearchResultsPage = () => {
         product.description.toLowerCase().includes(query) ||
         product.category.toLowerCase().includes(query) ||
         product.subcategory.toLowerCase().includes(query) ||
+        (product.subcategory.toLowerCase() === "doors" && query === "door") ||  // Match singular/plural variants
         product.material.toLowerCase().includes(query)
       );
     });
 
+    console.log(`Found ${results.length} products matching "${query}"`);
+    
     results.sort((a, b) => {
-      if (a.name.toLowerCase().includes(query) && !b.name.toLowerCase().includes(query)) return -1;
-      if (!a.name.toLowerCase().includes(query) && b.name.toLowerCase().includes(query)) return 1;
+      // Exact name match gets highest priority
+      const aNameMatch = a.name.toLowerCase().includes(query);
+      const bNameMatch = b.name.toLowerCase().includes(query);
+      if (aNameMatch && !bNameMatch) return -1;
+      if (!aNameMatch && bNameMatch) return 1;
+      
+      // Then category/subcategory match
+      const aCategoryMatch = a.category.toLowerCase().includes(query) || a.subcategory.toLowerCase().includes(query);
+      const bCategoryMatch = b.category.toLowerCase().includes(query) || b.subcategory.toLowerCase().includes(query);
+      if (aCategoryMatch && !bCategoryMatch) return -1;
+      if (!aCategoryMatch && bCategoryMatch) return 1;
       
       return 0;
     });

@@ -40,11 +40,12 @@ const SearchBar = () => {
         product.description.toLowerCase().includes(query) ||
         product.category.toLowerCase().includes(query) ||
         product.subcategory.toLowerCase().includes(query) ||
+        (product.subcategory.toLowerCase() === "doors" && query === "door") ||  // Match "door" with "doors" subcategory
         product.material.toLowerCase().includes(query)
       );
     });
 
-    // Sort results by relevance (exact name match first, then category, etc.)
+    // Sort results by relevance
     results.sort((a, b) => {
       // Exact name match gets highest priority
       const aNameMatch = a.name.toLowerCase().includes(query);
@@ -52,15 +53,16 @@ const SearchBar = () => {
       if (aNameMatch && !bNameMatch) return -1;
       if (!aNameMatch && bNameMatch) return 1;
       
-      // Then category match
-      const aCategoryMatch = a.category.toLowerCase() === query;
-      const bCategoryMatch = b.category.toLowerCase() === query;
+      // Then category/subcategory match
+      const aCategoryMatch = a.category.toLowerCase().includes(query) || a.subcategory.toLowerCase().includes(query);
+      const bCategoryMatch = b.category.toLowerCase().includes(query) || b.subcategory.toLowerCase().includes(query);
       if (aCategoryMatch && !bCategoryMatch) return -1;
       if (!aCategoryMatch && bCategoryMatch) return 1;
       
       return 0;
     });
 
+    console.log(`Search query: "${query}", Found ${results.length} results`);
     setSearchResults(results);
   }, [searchQuery, products]);
 
@@ -116,7 +118,7 @@ const SearchBar = () => {
           <Command className="rounded-lg border shadow-md">
             <CommandInput placeholder="Search products..." value={searchQuery} onValueChange={setSearchQuery} className="hidden" />
             <CommandList>
-              <CommandEmpty>No results found</CommandEmpty>
+              <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
               <CommandGroup heading="Products">
                 {searchResults.slice(0, 6).map((product) => (
                   <CommandItem 
@@ -134,7 +136,7 @@ const SearchBar = () => {
                     <div className="flex flex-col">
                       <span className="font-medium">{product.name}</span>
                       <span className="text-sm text-gray-500">
-                        {product.category} | ₹{product.price.toLocaleString()}
+                        {product.category} | {product.subcategory} | ₹{product.price.toLocaleString()}
                       </span>
                     </div>
                   </CommandItem>
