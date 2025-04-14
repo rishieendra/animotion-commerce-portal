@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useProducts, ProductCategory } from "@/contexts/ProductContext";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import ProductCard from "@/components/ProductCard";
 import AnimatedSection from "@/components/AnimatedSection";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Search, Mail, MapPin, Phone } from "lucide-react";
 
 const categoryImages: Record<ProductCategory, string> = {
   'UPVC': 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&h=450',
@@ -21,6 +23,7 @@ const categoryImages: Record<ProductCategory, string> = {
 const HomePage = () => {
   const { products, getFeaturedProducts } = useProducts();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   
   const featuredProducts = getFeaturedProducts();
   
@@ -57,6 +60,10 @@ const HomePage = () => {
     };
   }, []);
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
       <NavBar />
@@ -77,17 +84,17 @@ const HomePage = () => {
             <p className="text-lg sm:text-xl mb-8">
               Transform your space with our high-quality windows, doors, and partitions
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/categories">
-                <Button size="lg" className="font-semibold">
-                  Browse Categories
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" className="font-semibold">
-                  Contact Us
-                </Button>
-              </Link>
+            <div className="max-w-md mx-auto">
+              <div className="relative">
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  className="pr-10 bg-white/90 text-gray-900"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+              </div>
             </div>
           </AnimatedSection>
         </div>
@@ -152,52 +159,121 @@ const HomePage = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
+            <h2 className="text-3xl font-bold mb-4">About Us</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We pride ourselves on quality craftsmanship and exceptional service
+              Learn more about our commitment to quality and excellence
             </p>
           </AnimatedSection>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection delay={100}>
-              <div className="text-center p-6 hover:shadow-lg transition-shadow rounded-lg">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>
-                <p className="text-gray-600">
-                  All our products are crafted with the finest materials for durability and longevity
-                </p>
+              <div className="rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&h=600" 
+                  alt="Our workshop" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={200}>
-              <div className="text-center p-6 hover:shadow-lg transition-shadow rounded-lg">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Expert Installation</h3>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Our Story</h3>
                 <p className="text-gray-600">
-                  Our team of professionals ensures perfect installation every time
+                  Founded in 1995, ArchitecturaPro has been at the forefront of architectural innovations for over two decades. What began as a small family business has grown into one of the most trusted names in premium architectural elements.
                 </p>
+                <p className="text-gray-600">
+                  Our team of skilled craftsmen and designers blend traditional techniques with cutting-edge technology to create windows, doors, and partitions that stand the test of time. We take pride in sourcing only the highest quality materials to ensure durability, functionality, and aesthetic appeal.
+                </p>
+                <p className="text-gray-600">
+                  At ArchitecturaPro, we believe that architectural elements are not just functional components but essential design features that transform spaces. Our commitment to excellence and attention to detail have earned us the trust of homeowners, architects, and builders nationwide.
+                </p>
+                <div className="pt-4">
+                  <h4 className="font-bold text-lg mb-2">Our Values</h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <li className="flex items-center text-gray-600">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Quality Craftsmanship
+                    </li>
+                    <li className="flex items-center text-gray-600">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Innovation
+                    </li>
+                    <li className="flex items-center text-gray-600">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Sustainability
+                    </li>
+                    <li className="flex items-center text-gray-600">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Customer Satisfaction
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+      
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <AnimatedSection className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Get in touch with our team for personalized assistance and information
+            </p>
+          </AnimatedSection>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatedSection delay={100}>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Visit Our Showroom</h3>
+                <address className="not-italic text-gray-600">
+                  <p>123 Architecture Avenue</p>
+                  <p>Building District, BL 54321</p>
+                  <p className="mt-2">Mon-Sat: 9:00 AM - 6:00 PM</p>
+                  <p>Sunday: Closed</p>
+                </address>
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection delay={200}>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Call Us</h3>
+                <p className="text-gray-600 mb-2">Sales Department</p>
+                <p className="text-primary font-semibold">+1 (555) 123-4567</p>
+                <p className="text-gray-600 mt-4 mb-2">Customer Support</p>
+                <p className="text-primary font-semibold">+1 (555) 765-4321</p>
+                <p className="mt-4 text-gray-600">We're available 24/7 for urgent inquiries</p>
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={300}>
-              <div className="text-center p-6 hover:shadow-lg transition-shadow rounded-lg">
+              <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <Mail className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Customer Support</h3>
-                <p className="text-gray-600">
-                  Dedicated support team available to assist you at every step
-                </p>
+                <h3 className="text-xl font-semibold mb-2">Email Us</h3>
+                <p className="text-gray-600 mb-2">General Inquiries</p>
+                <p className="text-primary font-semibold mb-4">info@architecturapro.com</p>
+                <p className="text-gray-600 mb-2">Sales & Quotations</p>
+                <p className="text-primary font-semibold mb-4">sales@architecturapro.com</p>
+                <p className="text-gray-600 mb-2">Support</p>
+                <p className="text-primary font-semibold">support@architecturapro.com</p>
               </div>
             </AnimatedSection>
           </div>
