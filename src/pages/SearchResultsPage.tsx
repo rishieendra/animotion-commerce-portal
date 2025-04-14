@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProducts, Product } from "@/contexts/ProductContext";
@@ -11,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
@@ -26,7 +26,6 @@ const SearchResultsPage = () => {
     inStock: false
   });
 
-  // Get unique categories and subcategories for filters
   const categories = [...new Set(products.map(p => p.category))];
   const subcategories = [...new Set(products.map(p => p.subcategory))];
 
@@ -48,13 +47,9 @@ const SearchResultsPage = () => {
       );
     });
 
-    // Sort results by relevance
     results.sort((a, b) => {
-      // Exact name match gets highest priority
-      const aNameMatch = a.name.toLowerCase().includes(query);
-      const bNameMatch = b.name.toLowerCase().includes(query);
-      if (aNameMatch && !bNameMatch) return -1;
-      if (!aNameMatch && bNameMatch) return 1;
+      if (a.name.toLowerCase().includes(query) && !b.name.toLowerCase().includes(query)) return -1;
+      if (!a.name.toLowerCase().includes(query) && b.name.toLowerCase().includes(query)) return 1;
       
       return 0;
     });
@@ -64,25 +59,20 @@ const SearchResultsPage = () => {
   }, [searchQuery, products]);
 
   useEffect(() => {
-    // Apply filters
     let filtered = [...searchResults];
     
-    // Filter by category
     if (filters.categories.size > 0) {
       filtered = filtered.filter(p => filters.categories.has(p.category));
     }
     
-    // Filter by subcategory
     if (filters.subcategories.size > 0) {
       filtered = filtered.filter(p => filters.subcategories.has(p.subcategory));
     }
     
-    // Filter by price range
     filtered = filtered.filter(
       p => p.price >= filters.priceRange.min && p.price <= filters.priceRange.max
     );
     
-    // Filter by stock
     if (filters.inStock) {
       filtered = filtered.filter(p => p.inStock);
     }
@@ -139,7 +129,6 @@ const SearchResultsPage = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Filters sidebar */}
             {showFilters && (
               <div className="lg:col-span-1 border rounded-lg p-4">
                 <div className="flex items-center justify-between mb-4">
@@ -165,7 +154,6 @@ const SearchResultsPage = () => {
                 <Separator className="my-4" />
                 
                 <div className="space-y-6">
-                  {/* Categories */}
                   <div>
                     <h3 className="font-medium mb-2">Categories</h3>
                     <div className="space-y-2">
@@ -189,7 +177,6 @@ const SearchResultsPage = () => {
                   
                   <Separator />
                   
-                  {/* Subcategories */}
                   <div>
                     <h3 className="font-medium mb-2">Types</h3>
                     <div className="space-y-2">
@@ -213,7 +200,6 @@ const SearchResultsPage = () => {
                   
                   <Separator />
                   
-                  {/* Price Range */}
                   <div>
                     <h3 className="font-medium mb-2">Price Range</h3>
                     <div className="grid grid-cols-2 gap-4">
@@ -254,7 +240,6 @@ const SearchResultsPage = () => {
                   
                   <Separator />
                   
-                  {/* Availability */}
                   <div>
                     <div className="flex items-center space-x-2">
                       <Checkbox 
@@ -276,7 +261,6 @@ const SearchResultsPage = () => {
               </div>
             )}
             
-            {/* Product grid */}
             <div className={`${showFilters ? 'lg:col-span-3' : 'lg:col-span-4'}`}>
               {filteredResults.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
