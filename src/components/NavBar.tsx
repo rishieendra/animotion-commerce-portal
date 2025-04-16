@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,8 @@ import {
   Package, 
   Info, 
   Phone,
-  ChevronDown
+  ChevronDown,
+  ShoppingBag
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -99,6 +101,12 @@ const NavBar = () => {
                 </Button>
               </Link>
             )}
+            
+            <Link to="/orders">
+              <Button variant="outline" size="icon">
+                <ShoppingBag className="h-5 w-5" />
+              </Button>
+            </Link>
             
             <Link to="/cart">
               <Button variant="outline" size="icon" className="relative">

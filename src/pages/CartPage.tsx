@@ -12,15 +12,6 @@ const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
-    toast({
-      title: "Order Placed Successfully!",
-      description: "Thank you for your purchase.",
-    });
-    clearCart();
-    navigate('/');
-  };
-
   if (cartItems.length === 0) {
     return (
       <div>
@@ -98,8 +89,18 @@ const CartPage = () => {
                 <span>₹{getTotalPrice().toLocaleString()}</span>
               </div>
             </div>
-            <Button className="w-full" onClick={handleCheckout}>
+            <Button 
+              className="w-full mb-2" 
+              onClick={() => navigate('/checkout')}
+            >
               Proceed to Checkout
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full" 
+              onClick={() => navigate('/')}
+            >
+              Continue Shopping
             </Button>
           </div>
         </div>

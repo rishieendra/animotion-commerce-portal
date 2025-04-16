@@ -16,6 +16,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ProductForm from "./pages/ProductForm";
 import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
+import OrdersPage from "./pages/OrdersPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,9 @@ const AppRoutes = () => {
       <Route path="/category/:categoryId" element={<CategoryPage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/orders" element={<OrdersPage />} />
       
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminDashboard />} />
@@ -35,8 +40,6 @@ const AppRoutes = () => {
       
       {/* Catch-all Route */}
       <Route path="*" element={<NotFound />} />
-      
-      <Route path="/cart" element={<CartPage />} />
     </Routes>
   );
 };
