@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -17,10 +16,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCart } from "@/contexts/CartContext";
 
 const NavBar = () => {
   const { user, logout } = useAuth();
-
+  const { getTotalItems } = useCart();
+  
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 py-4">
@@ -100,8 +101,13 @@ const NavBar = () => {
             )}
             
             <Link to="/cart">
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {getTotalItems()}
+                  </span>
+                )}
               </Button>
             </Link>
             

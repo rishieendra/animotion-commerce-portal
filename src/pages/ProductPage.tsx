@@ -16,12 +16,14 @@ import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Home, ChevronRight, ShoppingCart, Edit, Trash2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const { products, deleteProduct } = useProducts();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   
   const product = products.find(p => p.id === productId);
   
@@ -193,7 +195,7 @@ const ProductPage = () => {
                 <p className="text-gray-700">{product.description}</p>
               </div>
               
-              <Button className="w-full" size="lg">
+              <Button className="w-full" size="lg" onClick={() => addToCart(product)}>
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,16 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProductProvider } from "@/contexts/ProductContext";
-
-// Pages
-import HomePage from "./pages/HomePage";
-import CategoriesPage from "./pages/CategoriesPage";
-import CategoryPage from "./pages/CategoryPage";
-import ProductPage from "./pages/ProductPage";
-import SearchResultsPage from "./pages/SearchResultsPage";
-import AdminDashboard from "./pages/AdminDashboard";
-import ProductForm from "./pages/ProductForm";
-import NotFound from "./pages/NotFound";
+import { CartProvider } from "@/contexts/CartContext";
+import CartPage from "./pages/CartPage";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +26,8 @@ const AppRoutes = () => {
       
       {/* Catch-all Route */}
       <Route path="*" element={<NotFound />} />
+      
+      <Route path="/cart" element={<CartPage />} />
     </Routes>
   );
 };
@@ -44,11 +37,13 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <ProductProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <CartProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </CartProvider>
         </ProductProvider>
       </AuthProvider>
     </TooltipProvider>
