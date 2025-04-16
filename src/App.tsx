@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { CartProvider } from "@/contexts/CartContext";
+import RequireAuth from "@/components/RequireAuth";
 import HomePage from "./pages/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryPage from "./pages/CategoryPage";
@@ -29,14 +29,41 @@ const AppRoutes = () => {
       <Route path="/category/:categoryId" element={<CategoryPage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/orders" element={<OrdersPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      
+      {/* Protected Routes */}
+      <Route path="/cart" element={
+        <RequireAuth>
+          <CartPage />
+        </RequireAuth>
+      } />
+      <Route path="/checkout" element={
+        <RequireAuth>
+          <CheckoutPage />
+        </RequireAuth>
+      } />
+      <Route path="/orders" element={
+        <RequireAuth>
+          <OrdersPage />
+        </RequireAuth>
+      } />
       
       {/* Admin Routes */}
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/admin/add-product" element={<ProductForm />} />
-      <Route path="/admin/edit-product/:productId" element={<ProductForm />} />
+      <Route path="/admin" element={
+        <RequireAuth>
+          <AdminDashboard />
+        </RequireAuth>
+      } />
+      <Route path="/admin/add-product" element={
+        <RequireAuth>
+          <ProductForm />
+        </RequireAuth>
+      } />
+      <Route path="/admin/edit-product/:productId" element={
+        <RequireAuth>
+          <ProductForm />
+        </RequireAuth>
+      } />
       
       {/* Catch-all Route */}
       <Route path="*" element={<NotFound />} />
