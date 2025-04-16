@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
